@@ -62,18 +62,46 @@ class App extends Component {
 
     // otherwise generated-image and button are hidden
     if (this.state.showGeneratedImage) {
-      let distanceFromTop =
-        divImage.getBoundingClientRect().top + window.pageYOffset;
+      let distanceFromTop = divImage.getBoundingClientRect().top + window.pageYOffset;
 
-      // create canvas from html element
+  
       html2canvas(divImage, {
-        useCORS: true,
-        y: distanceFromTop,
-      }).then((canvas) => {
-        let base64 = canvas.toDataURL('image/png');
-        // make base64 of canvas the href for download button
-        button.href = base64;
-      });
+          useCORS: true,
+          y: distanceFromTop,
+        }).then((canvas) => {
+          // make base64 of canvas the href for download button
+          let base64 = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+          button.href = base64;
+        });
+
+      // if(window.innerWidth < 766){
+      //   // create canvas from html element
+      //   html2canvas(divImage, {
+      //     useCORS: true,
+      //     scrollX: 0,
+      //     scrollY: -window.scrollY,
+      //     height: divImage.offsetHeight,
+      //     width: divImage.offsetWidth,
+      //     y: distanceFromTop,
+      //   }).then((canvas) => {
+      //     // make base64 of canvas the href for download button
+      //     let base64 = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+      //     button.href = base64;
+      //   });
+      // } else{
+      //   // create canvas from html element
+      //   html2canvas(divImage, {
+      //     useCORS: true,
+      //     scrollX: 0,
+      //     scrollY: -window.scrollY,
+      //     height: divImage.offsetHeight,
+      //     width: divImage.offsetWidth
+      //   }).then((canvas) => {
+      //     // make base64 of canvas the href for download button
+      //     let base64 = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+      //     button.href = base64;
+      //   });
+      // }
     }
   }
 
